@@ -7,6 +7,7 @@ namespace Student
 {
     public class UserController
     {
+        public UserController() { }
 
         internal User CreateUser(string stuUName)
         {
