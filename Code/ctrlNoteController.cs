@@ -10,6 +10,9 @@ namespace Student
         public Note CreateNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string createrName, string NoteDate)
         {
             Note N = new Note();
+            N.Type = new NoteType();
+            N.NoteClass = new ClassRoom();
+            N.NoteStudent = new Student();
             N.Type.ID = NoteType;
             N.NoteClass.ID = ClassID;
             N.NoteStudent.ID = StudentID;
