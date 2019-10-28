@@ -58,7 +58,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\ctrlNoteController.cs" />
     <Compile Include="Code\ClassRoom.cs" />
+    <Compile Include="Code\ctrlClassroomController.cs" />
     <Compile Include="Code\Cryptography.cs" />
     <Compile Include="Code\DBManager.cs" />
     <Compile Include="Code\Note.cs" />

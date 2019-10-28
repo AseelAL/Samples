@@ -16,6 +16,7 @@ namespace Student
         public DateTime Date;
         public Student NoteStudent;
         public ClassRoom NoteClass;
+        QueryManager _manager = new QueryManager();
 
         public Note()
         { }
@@ -31,6 +32,12 @@ namespace Student
             {
                 return Date.ToShortDateString();
             }
+        }
+
+        internal void save(int TeacherID, string createrName)//,string NoteDate)
+        {
+            //throw new NotImplementedException();
+            ID = Int32.Parse(_manager.SaveNote(this, TeacherID, createrName));//,NoteDate));
         }
     }
 }

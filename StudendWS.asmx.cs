@@ -22,6 +22,7 @@ namespace WebService1
     {
 
         StudentController studentController = new StudentController();
+        ctrlNoteController noteController = new ctrlNoteController();
         QueryManager _manager = new QueryManager();
 
         public string HelloWorld()
@@ -90,7 +91,10 @@ namespace WebService1
         public string SaveNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string CreatedBy, string NoteDate)
         {
             var jsonSerialiser = new JavaScriptSerializer();
-            var json = jsonSerialiser.Serialize(_manager.SaveNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
+            var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
+            // //string res = _manager.CreateStudent(StuName, StuFamilyName, StuFatherName, StuGFName, stuPhoneNumber, stuUName, ClassID, CreatedBy);
+//            string res = studentController.CreateStudent(StuName, StuFamilyName, StuFatherName, StuGFName, stuPhoneNumber, stuUName, ClassID, CreatedBy);
+
             return json;
         }
 

@@ -94,11 +94,12 @@ namespace Student
         }
 
 
-        public string SaveNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string createrName, string NoteDate)
+       // public string SaveNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string createrName, string NoteDate)
+        public string SaveNote(Note n , int TeacherID, string createrName)//, string NoteDate)
         {
             string Result = "-1";
-            string studentIdValue = StudentID.ToString();
-            if (StudentID == -1)
+            string studentIdValue = n.NoteStudent.ToString();
+            if (n.NoteStudent.ID == -1)
                 studentIdValue = "NULL";
            
             SqlConnection aConnection = DBMgr.GetSQLConnection();
@@ -106,13 +107,13 @@ namespace Student
             {
                 aConnection.Open();
                 SqlCommand myCmnd = aConnection.CreateCommand();
-                myCmnd.CommandText = @"insert into Note ([Type],[TeacherID],[ClassID],[StudentID],[Description],[Created by], [Note_Date], [Created Date]) values (" + NoteType +
+                myCmnd.CommandText = @"insert into Note ([Type],[TeacherID],[ClassID],[StudentID],[Description],[Created by], [Note_Date], [Created Date]) values (" + n.Type.ID +
                       @", " + TeacherID +
-                     @", " + ClassID +
-                     @", " + studentIdValue +
-                     ", '" + NoteDetails +
+                     @", " + n.NoteClass.ID +
+                     @", " + n.NoteStudent.ID +
+                     ", '" + n.Description +
                     @"', '" + createrName +
-                    @"', '"+  NoteDate+
+                    //@"', '"+  NoteDate+
                     @"', GETDATE()); select top 1 ID from Note order by [Created Date] desc";
 
 
