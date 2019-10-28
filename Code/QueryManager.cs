@@ -94,8 +94,7 @@ namespace Student
         }
 
 
-       // public string SaveNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string createrName, string NoteDate)
-        public string SaveNote(Note n , int TeacherID, string createrName)//, string NoteDate)
+        public string SaveNote(Note n , int TeacherID, string createrName)
         {
             string Result = "-1";
             string studentIdValue = n.NoteStudent.ToString();
@@ -113,7 +112,6 @@ namespace Student
                      @", " + n.NoteStudent.ID +
                      ", '" + n.Description +
                     @"', '" + createrName +
-                    //@"', '"+  NoteDate+
                     @"', GETDATE()); select top 1 ID from Note order by [Created Date] desc";
 
 

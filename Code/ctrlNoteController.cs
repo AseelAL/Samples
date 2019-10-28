@@ -14,8 +14,7 @@ namespace Student
             N.NoteClass.ID = ClassID;
             N.NoteStudent.ID = StudentID;
             N.Description = NoteDetails;
-            //N.Date.ToString() = NoteDate;
-            N.save(TeacherID, createrName);//,NoteDate);
+            N.save(TeacherID, createrName);
             return N;
         }
 

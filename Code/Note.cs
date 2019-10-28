@@ -34,10 +34,11 @@ namespace Student
             }
         }
 
-        internal void save(int TeacherID, string createrName)//,string NoteDate)
+        internal string save(int TeacherID, string createrName)
         {
             //throw new NotImplementedException();
-            ID = Int32.Parse(_manager.SaveNote(this, TeacherID, createrName));//,NoteDate));
+            ID = Int32.Parse(_manager.SaveNote(this, TeacherID, createrName));
+            return ID.ToString();
         }
     }
 }

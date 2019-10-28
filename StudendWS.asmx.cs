@@ -242,10 +242,11 @@ namespace WebService1
             string NoteDate =  HttpContext.Current.Request.Form.GetValues("NoteDate")[0];
 
 
-            string NoteID = _manager.SaveNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate);
+            var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
+           // string NoteID = noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate);
 
-            result = NoteID;
-            if ((HttpContext.Current.Request.Files.AllKeys.Any()) && (NoteID != "-1"))
+            result = json.ToString();
+            if ((HttpContext.Current.Request.Files.AllKeys.Any()) && (json.ToString() != "-1"))
             {
                 // Get the uploaded image from the Files collection
                 var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
@@ -254,17 +255,17 @@ namespace WebService1
                 {
                     result = "-1";
                     // Get the complete file path
-                    string DirecPath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), NoteID);
+                    string DirecPath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), json.ToString());
                     Directory.CreateDirectory(DirecPath);
                     var fileSavePath = Path.Combine(DirecPath, httpPostedFile.FileName);
 
                     // Save the uploaded file to "UploadedFiles" folder
                     httpPostedFile.SaveAs(fileSavePath);
-                    result = NoteID;
+                    result = json.ToString();
                 }
             }
-
-            var json = jsonSerialiser.Serialize(result);
+            // var json = jsonSerialiser.Serialize(result);
+               json = jsonSerialiser.Serialize(result);
             return json;
         }
 
