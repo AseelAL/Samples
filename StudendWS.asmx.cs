@@ -88,7 +88,7 @@ namespace WebService1
 
         [WebMethod(EnableSession = true)]
         [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-        public string SaveNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string CreatedBy, string NoteDate)
+        public string SaveNote(int NoteType, int TeacherID, int ClassID, int StudentID, string NoteDetails, string CreatedBy, DateTime NoteDate)
         {
             var jsonSerialiser = new JavaScriptSerializer();
             var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
@@ -239,7 +239,7 @@ namespace WebService1
             int StudentID = Int32.Parse( HttpContext.Current.Request.Form.GetValues("StudentID")[0]);
             string NoteDetails =  HttpContext.Current.Request.Form.GetValues("NoteDetails")[0];
             string CreatedBy =  HttpContext.Current.Request.Form.GetValues("CreatedBy")[0];
-            string NoteDate =  HttpContext.Current.Request.Form.GetValues("NoteDate")[0];
+            DateTime NoteDate =  HttpContext.Current.Request.Form.GetValues("NoteDate")[0];
 
 
             var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
