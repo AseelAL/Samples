@@ -231,6 +231,7 @@ namespace WebService1
         public string UploadFile()
         {
             var jsonSerialiser = new JavaScriptSerializer();
+            DateTime NoteDate = new DateTime();
             string result = "-1";
 
             int NoteType = Int32.Parse( HttpContext.Current.Request.Form.GetValues("NoteType")[0]);
@@ -239,7 +240,9 @@ namespace WebService1
             int StudentID = Int32.Parse( HttpContext.Current.Request.Form.GetValues("StudentID")[0]);
             string NoteDetails =  HttpContext.Current.Request.Form.GetValues("NoteDetails")[0];
             string CreatedBy =  HttpContext.Current.Request.Form.GetValues("CreatedBy")[0];
-            DateTime NoteDate =  HttpContext.Current.Request.Form.GetValues("NoteDate")[0];
+            string s;
+            s = NoteDate.ToString();
+            s=  HttpContext.Current.Request.Form.GetValues("NoteDate")[0];
 
 
             var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));

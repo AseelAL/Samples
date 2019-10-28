@@ -112,6 +112,7 @@ namespace Student
                      @", " + n.NoteStudent.ID +
                      ", '" + n.Description +
                     @"', '" + createrName +
+                    @"', '" + n.Date +
                     @"', GETDATE()); select top 1 ID from Note order by [Created Date] desc";
 
 
