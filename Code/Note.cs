@@ -37,7 +37,7 @@ namespace Student
         internal string save(int TeacherID, string createrName)
         {
             //throw new NotImplementedException();
-            ID = Int32.Parse(_manager.SaveNote(this, TeacherID, createrName));
+            ID = Int32.Parse(_manager.SaveNoteSP(this, TeacherID, createrName));
             return ID.ToString();
         }
     }

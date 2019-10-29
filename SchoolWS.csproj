@@ -54,6 +54,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SP\SaveNoteSP.sql" />
     <Content Include="StudendWS.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>

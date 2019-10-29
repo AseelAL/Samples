@@ -111,8 +111,7 @@ namespace Student
                      @", " + n.NoteClass.ID +
                      @", " + n.NoteStudent.ID +
                      ", '" + n.Description +
-                    @"', '" + createrName +
-                    @"', '" + n.Date +
+                    @" ', '" + createrName +    @"', '" + n.Date.ToShortDateString() +
                     @"', GETDATE()); select top 1 ID from Note order by [Created Date] desc";
 
 
@@ -133,6 +132,52 @@ namespace Student
             aConnection.Close();
             return Result;
         }
+
+        public string SaveNoteSP(Note n, int TeacherID, string createrName)
+        {
+            string Result = "-1";
+            string studentIdValue = n.NoteStudent.ToString();
+            if (n.NoteStudent.ID == -1)
+                studentIdValue = "NULL";
+
+            SqlConnection aConnection = DBMgr.GetSQLConnection();
+            try
+            {
+                aConnection.Open();
+
+                using (SqlCommand cmd = new SqlCommand ("SaveNote", aConnection))
+                {
+                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    
+                    cmd.Parameters.AddWithValue("@type", n.Type.ID ) ;
+                    cmd.Parameters.AddWithValue("@createdBy", createrName);
+                    cmd.Parameters.AddWithValue("@teacherID", TeacherID);
+                    cmd.Parameters.AddWithValue("@classID", n.NoteClass.ID);
+                    cmd.Parameters.AddWithValue("@studentID", n.NoteStudent.ID);
+                    cmd.Parameters.AddWithValue("@description", n.Description);
+                    cmd.Parameters.AddWithValue("@noteDate", n.Date);
+
+                    cmd.ExecuteNonQuery();
+
+                    Result = "1";
+                   
+
+                }
+
+            }
+            catch (SqlException se)
+            {
+                Result = "-1";
+                aConnection.Close();
+                throw (se);
+            }
+
+            aConnection.Close();
+            return Result;
+        }
+
+
+
 
 
         public bool SaveNoteType(NoteType NT)

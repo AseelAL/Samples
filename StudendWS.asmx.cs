@@ -92,8 +92,6 @@ namespace WebService1
         {
             var jsonSerialiser = new JavaScriptSerializer();
             var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
-            // //string res = _manager.CreateStudent(StuName, StuFamilyName, StuFatherName, StuGFName, stuPhoneNumber, stuUName, ClassID, CreatedBy);
-//            string res = studentController.CreateStudent(StuName, StuFamilyName, StuFatherName, StuGFName, stuPhoneNumber, stuUName, ClassID, CreatedBy);
 
             return json;
         }
@@ -245,11 +243,9 @@ namespace WebService1
             s=  HttpContext.Current.Request.Form.GetValues("NoteDate")[0];
 
 
-            var json = jsonSerialiser.Serialize(noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate));
-           // string NoteID = noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate);
+            Note aNote = noteController.CreateNote(NoteType, TeacherID, ClassID, StudentID, NoteDetails, CreatedBy, NoteDate);
 
-            result = json.ToString();
-            if ((HttpContext.Current.Request.Files.AllKeys.Any()) && (json.ToString() != "-1"))
+            if ((HttpContext.Current.Request.Files.AllKeys.Any()) && (aNote.ID != -1))
             {
                 // Get the uploaded image from the Files collection
                 var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
@@ -258,17 +254,16 @@ namespace WebService1
                 {
                     result = "-1";
                     // Get the complete file path
-                    string DirecPath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), json.ToString());
+                    string DirecPath = Path.Combine(HttpContext.Current.Server.MapPath("~/UploadedFiles"), aNote.ID.ToString());
                     Directory.CreateDirectory(DirecPath);
                     var fileSavePath = Path.Combine(DirecPath, httpPostedFile.FileName);
 
                     // Save the uploaded file to "UploadedFiles" folder
                     httpPostedFile.SaveAs(fileSavePath);
-                    result = json.ToString();
+                    result = aNote.ID.ToString();
                 }
             }
-            // var json = jsonSerialiser.Serialize(result);
-               json = jsonSerialiser.Serialize(result);
+            var json = jsonSerialiser.Serialize(result);
             return json;
         }
 
